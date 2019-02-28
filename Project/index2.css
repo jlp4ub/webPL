@@ -1,0 +1,33 @@
+/* customize styles to bootstrap*/
+
+.jumbotron {
+	background: #003366;
+	color: white;
+	text-align: center; /*align center instead of default (left)
+}*/
+
+/*.jumbotron p {
+	color: white;
+	font-size: 26px;
+}*/
+
+/*override styles to the button*/
+/*.btn-primary {
+	color: #ffffff;
+	background-color: #F29840;
+	border-color: white;
+}*/
+
+.rows {
+	width: 500px;
+}
+
+a:link {
+	margin-right: 10px;
+	padding-right: 100000px;
+	background:black;
+}
+
+.container{
+	background-color: black
+}

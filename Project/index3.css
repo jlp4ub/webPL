@@ -1,0 +1,57 @@
+.body {
+	display: inline-block;
+}
+
+.left {
+	float: left;
+	background-color: blue;
+	height: 660px;
+	width: 20%;
+}
+
+.middle {
+	float: left;
+	background-color: yellow;
+	width: 20%;
+	height: 660px;
+}
+
+.right {
+	float: right;
+	background-color: pink;
+	height: 660px;
+	width: 80%;
+}
+
+.container p {
+	text-align: center;
+	padding-top: 30px;
+}
+
+.check {
+	text-align: left;
+	display: inline-block;
+	width: 300px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  width: 33%;
+}
+
+/*tr:nth-child(even) {
+  background-color: #dddddd;
+}*/
+
+.season {
+	background-color: blue;
+}
