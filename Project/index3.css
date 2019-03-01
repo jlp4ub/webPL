@@ -34,7 +34,44 @@
 	width: 300px;
 }
 
-table {
+/*table#options th, td{
+    display:block;
+    width: 50px;
+}*/
+
+table#options{
+    /*background-color: white;*/
+    border: 1px solid black;
+    color: fff;
+}
+
+table th, td {
+    width: 200px;
+    height:70px;
+    text-align: center;
+    /*user-drag: ;*/
+    /*display: inline-block;*/
+}
+table span {
+    display:block;
+    /*background-color: #ccc;*/
+    border: 1px solid black;
+    color: fff;
+    height: 30px;
+    width: 100%;
+}
+
+table#options td {
+	display: inline-block;
+	height: 100%;
+
+}
+
+table#main {
+	margin-left: 300px;
+}
+
+/*table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 50%;
@@ -46,7 +83,7 @@ td, th {
   text-align: left;
   padding: 8px;
   width: 33%;
-}
+}*/
 
 /*tr:nth-child(even) {
   background-color: #dddddd;
@@ -55,3 +92,25 @@ td, th {
 .season {
 	background-color: blue;
 }
+
+.active-pink-2 input[type=text]:focus:not([readonly]) {
+    border-bottom: 1px solid #f48fb1;
+    box-shadow: 0 1px 0 0 #f48fb1;
+}
+
+.searchbar {
+	background-color: red;
+	padding-left: 400px;
+	padding-top: 30px;
+	padding-bottom: 30px;
+}
+/*Search Bar*/
+/*input[type=text] {
+  width: 130px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}*/
+/* When the input field gets focus, change its width to 100% 
+input[type=text]:focus {
+  width: 50%;
+}*/
