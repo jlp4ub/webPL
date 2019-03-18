@@ -1,25 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">  <!-- required to handle IE -->
-        
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" /> 
+<!DOCTYPE>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
+    <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet'>
+    <title>Schedule4Me</title>
 
-    <!--Connect link to css file  -->
-    <link rel="stylesheet" type="text/css" href="index3.css">
-          
-    <title>Bootstrap example</title>
-        
-  </head>
+    <style>
+    	
+    	@media screen and (min-width:377px){
+    		.left{
+    			float:left;
+    			height: 100%;
+    			width:22%;
+    			padding-left: 20px;
+    			padding-top: 20px;
+    			background-color: #282828;
+    	
+    		}
+    		.right{
+    			float:right;
+    			width: 78%;
+    			height: 100%;
+    			background-color: #404040;
+    		}
+    	
+    		.searchbar {
+    			padding-top: 20px;
+	    		padding-left: 550px;
+	    		width:100%;
+	    	}
+	    	.main-right{
+	    		padding-top: 12px;
+	    		/*padding-left: 20px;*/
+	    	}
+	    	.select-course{
+	    		padding-left: 10px;
+	    		padding-top: 21px;
+	    		width:13%;
+	    		height: 100%;
+	    		text-align: center;
+	    		color: #E8E8E8;
+	    	}
+	    	td{
+    		padding:25px;
+	    	}
+	    	table th, td {
+			    /*width: 170px;*/
+			    width:20%;
+			    height:30px;
+			    text-align: center;
+			    border: 1px solid black;
+			    background-color: #E8E8E8;
+		
+			}
+			table#schedule{
+				width:85%;
+				height: 75%;
+				background-color: #E8E8E8;
+				margin-right: 20px;
+				/*table-layout: fixed;*/
+			}
+			
+			.sched_row{
+				width:100%;
+			}
+			.drop-row{
+				height: 200px;
+			}
+			.req{
+				color:white;
+			}
+			.event{
+				padding-top: 0px;
+				padding-bottom: 2px;
+				width:100%;
+				margin-right: 1px;
+				background-color: #61C2A2;
+			}    		
+	    }
+	    body{
+    		font-family: 'Arvo';
+    	}
+	</style>
 
-  <body>
-  
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+</head>
+
+<body>
+	<script>
+		var total = "global";
+		var first = "global";
+		var second = "global";
+		var third = "global";
+		var fourth = "global";
+		total, first, second, third, fourth = 0;
+	</script>
+	<nav class="navbar navbar-expand-md navbar-dark" style="background-color: #61C2A2">
         <a class="navbar-brand" href="#">Schedule4Me</a>
         <!-- Hamburger collapsible -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -33,14 +111,7 @@
             <li class="nav-item">
               <a class="nav-link" href="#">Account</a>
             </li>              
-            <!-- <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown01">
-                <a class="dropdown-item" href="#">Design</a>
-                <a class="dropdown-item" href="#">Development</a>
-                <a class="dropdown-item" href="#">Consulting</a>
-             </div>
-            </li>    -->                         
+                         
             <li class="nav-item"> 
               <a class="nav-link" href="#">MySchedule</a>
             </li>
@@ -54,308 +125,137 @@
           </ul>
         </div>  
       </nav>
-      <!-- End of Navigation Bar -->
 
-      <div class = "left">
-        <div class ="container">
-          <p>CLAS Requirements</p>
+	<div class = "left" style="color:#E8E8E8;">
+        <div class ="general-req" >
+          <p><u>CLAS Requirements</u></p>
           <form class= "check" action="/action_page.php">
-            <input type="checkbox" name="vehicle1" value="Bike"> Foreign Language Requirement<br>
-            <input type="checkbox" name="vehicle2" value="Car"> First Writing Requirement<br>
-            <input type="checkbox" name="vehicle3" value="Boat" checked> Second Writing Requirement<br><br>
+            <input type="checkbox" class="req"> Foreign Language Requirement<br>
+            <input type="checkbox" name="req"> First Writing Requirement<br>
+            <input type="checkbox" name="req"> Second Writing Requirement<br><br>
+            <input type="checkbox" name="req"> Social Sciences<br>
+            <input type="checkbox" name="req"> Humanities<br>
+            <input type="checkbox" name="req"> Historical Studies<br>
+            <input type="checkbox" name="req"> Non-Western Perspective<br>
+            <input type="checkbox" name="req"> Natural Science and Mathematics<br>
           </form>
 
-          <!-- <p>
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-          </p> -->
+        </div>
 
-        </div>   
         <br>
         <br>
         <br>
         <br>
         <br>
 
-        <div class ="container">
-          <p>Major: Computer Science</p>
+        <div class ="major-req">
+          <p><u>Major: Computer Science</u></p>
           <form class= "check" action="/action_page.php">
-            <input type="checkbox" name="vehicle1" value="Bike"> CS 1110<br>
-            <input type="checkbox" name="vehicle2" value="Car"> CS 2110<br>
-            <input type="checkbox" name="vehicle3" value="Boat" checked> CS 2102<br><br>
+            <input type="checkbox" name="req"> CS 1110<br>
+            <input type="checkbox" name="req"> CS 2110<br>
+            <input type="checkbox" name="req"> CS 2102<br>
+            <input type="checkbox" name="req"> CS 2150<br>
+            <input type="checkbox" name="req"> CS 3330<br>
+            <input type="checkbox" name="req"> CS 4102<br>
+            <input type="checkbox" name="req"> Computing Electives<br>
+            <input type="checkbox" name="req"> Integrative Electives<br><br>
           </form>
-
-          <!-- <p>
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-          </p> -->
-
-        </div>        
-      </div>
-
-
-
-      <div class = "right">
-        <div class = "middle">
-          <div class ="container">
-            <p>Selected Courses</p>
-
-            <table id="options" border="0">
-              <div class= "container2">
-                <div class = row>
-                  <td><span class="event" id="item1" draggable="true">CS1</span></td>  
-                </div>
-                <div class = row>
-                  <td><span class="event" id="item1" draggable="true">CS2</span></td>  
-                </div>
-                <div class = row>
-                  <td><span class="event" id="item1" draggable="true">CS3</span></td>  
-                </div>
-                <div class = row>
-                  <td><span class="event" id="item1" draggable="true">CS4</span></td>  
-                </div>   
-              </div>
-            </table>
-
-          <!-- <p>
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-          </p> -->
-
-          </div>
         </div>
+	</div>
 
-        <div class ="container">
+	<div class="right">
+	
+		<div class="select-course" style="float:left;">
+			<p><u>Selected Courses</u></p>
+			<table id="options" border="0">
+				
+			</table>
+		</div>
 
-          <!-- <form class="searchbar" method="get" action= <td> <span id="item1" draggable="true">CS1</span> </td> >
-            <input type="text" name="search" placeholder="Search.." >
-          </form> -->
-          <form class="searchbar">
-            <i class="fas fa-search" aria-hidden="true"></i>
-            <input class="form-control form-control-sm ml-3 w-75" type="text" id= "courseId" placeholder="Search.." aria-label="Search">
-            <input type="button" class="btn btn-light" id="add" value="Add Class" onclick="addElement()"/>
-          </form>          
+		<div class="container">
+			<form class="searchbar">
+				<input type="text" placeholder="Search" name="search"  id="courseID">
+				<input type="button" class="btn btn-light" value="Add Class" onclick="addElement()">
+					<i class="fa fa-search"></i>
+				</input>
+			</form>
 
-<!-- scheduling table -->
-          <table id = "main" border="1">
-              <tr>
-                <th>1st</th>
-                <th>2nd</th>
-                <th>3rd</th>
-                <th>4th</th>
-              </tr>
-              <tr class = "season">
-                  <th>Fall</th>
-                  <th>Fall</th>
-                  <th>Fall</th>
-                  <th>Fall</th>
-              </tr>
-              <tr>
-              <!-- <td><span class="event" id="item1" draggable="true">CS5</span></td>
-              <td><span class="event" id="item1" draggable="true">CS6</span></td>
-              <td><span class="event" id="item1" draggable="true">CS7</span></td>
-              <td><span class="event" id="item1" draggable="true">CS8</span></td> -->
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
+			<div class="main-right">
+				<table id="schedule" align="center">
+					<tr>
+						<th>1st</th>
+			            <th>2nd</th>
+			            <th>3rd</th>
+			            <th>4th</th>
+			        </tr>
 
-              </tr>
-             
+			        <tr>
+			        	<th>Fall</th>
+			        	<th>Fall</th>
+			        	<th>Fall</th>
+			        	<th>Fall</th>
+			        </tr>
 
-              <!-- <td></td> -->
-              <tr class = "season">
-                  <th>Spring</th>
-                  <th>Spring</th>
-                  <th>Spring</th>
-                  <th>Spring</th>
-              </tr>
-              <tr>
-                  <!-- <td><span class="event" id="item1" draggable="true">CS9</span></td>
-                  <td><span class="event" id="item1" draggable="true">CS10</span></td>
-                  <td><span class="event" id="item1" draggable="true">CS11</span></td>
-                  <td><span class="event" id="item1" draggable="true">CS12</span></td> -->
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-              </tr>
-          </table>
-<!-- end of scheduling table -->
+			        <tr class="drop-row">
+			        	<td class="sched" ondragover="allowDrop(event)" ondrop="drop(event, this)"></td>
+			        	<td class="sched" ondragover="allowDrop(event)" ondrop="drop(event, this)"></td>
+			        	<td class="sched" ondragover="allowDrop(event)" ondrop="drop(event, this)"></td>
+			        	<td class="sched" ondragover="allowDrop(event)" ondrop="drop(event, this)"></td>
+			        </tr>
 
+			        <tr>
+			        	<th>Spring</th>
+			        	<th>Spring</th>
+			        	<th>Spring</th>
+			        	<th>Spring</th>
+			        </tr>
 
+			        <tr class="drop-row">
+			        	<td class="sched" ondragover="allowDrop(event)" ondrop="drop(event, this)"></td>
+			        	<td class="sched" ondragover="allowDrop(event)" ondrop="drop(event, this)"></td>
+			        	<td class="sched" ondragover="allowDrop(event)" ondrop="drop(event, this)"></td>
+			        	<td class="sched" ondragover="allowDrop(event)" ondrop="drop(event, this)"></td>
+			        </tr>
 
-          <!-- <table align= "center">
-            <tr>
-              <th>1st</th>
-              <th>2nd</th>
-              <th>3rd</th>
-              <th>4th</th>
-            </tr>
-
-            <tr class = "season">
-              <th>Fall</th>
-              <th>Fall</th>
-              <th>Fall</th>
-              <th>Fall</th>
-            </tr>
-
-            <tr>
-              <td>Alfreds Futterkiste</td>
-              <td>Maria Anders</td>
-              <td>Germany</td>
-              <td>Germany</td>
-            </tr>
-            <tr>
-              <td>Centro comercial Moctezuma</td>
-              <td>Francisco Chang</td>
-              <td>Mexico</td>
-              <td>Germany</td>
-            </tr>
-            <tr>
-              <td>Ernst Handel</td>
-              <td>Roland Mendel</td>
-              <td>Austria</td>
-              <td>Germany</td>
-            </tr>
-                    
-
-            <tr class= "season">
-              <th>Spring</th>
-              <th>Spring</th>
-              <th>Spring</th>
-              <th>Spring</th>
-            </tr>
-            <tr>
-              <td>Alfreds Futterkiste</td>
-              <td>Maria Anders</td>
-              <td>Germany</td>
-              <td>Germany</td>
-            </tr>
-            <tr>
-              <td>Centro comercial Moctezuma</td>
-              <td>Francisco Chang</td>
-              <td>Mexico</td>
-              <td>Germany</td>
-            </tr>
-            <tr>
-              <td>Ernst Handel</td>
-              <td>Roland Mendel</td>
-              <td>Austria</td>
-              <td>Germany</td>
-            </tr>
-          </table> -->
+			        <tr>
+			        	<th style="border:1px solid black; text-align:left; font-size: 12px">1st year: first</th>
+			        	<th style="border:1px solid black; text-align:left; font-size: 12px">2nd year:</th>
+			        	<th style="border:1px solid black; text-align:left; font-size: 12px">3rd year:</th>
+			        	<th style="border:1px solid black; text-align:left; font-size: 12px">4th year:</th>
+			        </tr>
+			    </table>
+			</div>
+		</div>
+	</div>
 
 
-          <!-- <p>
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-          </p> -->
+</body>
 
-        </div>
-      </div>
+<script>
+	function drop(ev, el){
+		ev.preventDefault();
+		var data = ev.dataTransfer.getData("text");
+		el.appendChild(document.getElementById(data)).style.display="block";
+	}
+	var allowDrop = (ev)=> ev.preventDefault();
+	function drag(ev) {
+	  ev.dataTransfer.setData("text", ev.target.id);
+	}
+	function addElement() {
+		var table = document.getElementById("options");
+		var row = table.insertRow(0);
+		var cell = document.createElement("TD");
+		var name = document.getElementById("courseID").value;
+		var cell = row.insertCell(0);
+		cell.innerHTML = document.getElementById("courseID").value;
+		cell.classList.add("event");
+		//cell.classList.insertBefore("event");
+		
+		cell.setAttribute("id", name);
+        cell.setAttribute("draggable", true);
+        cell.addEventListener("dragstart", drag);
+        
+	}
+</script>
 
-
-      
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-    <!-- <script src="js/bootstrap.min.js"></script> if you downloaded bootstrap to your computer -->
-    <script>
-    $(document).ready(function () {
-        $('.event').on("dragstart", function (event) {
-            var dt = event.originalEvent.dataTransfer;
-            dt.setData('Text', $(this).attr('id'));
-        });
-        $('table td').on("dragenter dragover drop", function (event) {
-            event.preventDefault();
-            if (event.type === 'drop') {
-                var data = event.originalEvent.dataTransfer.getData('Text', $(this).attr('id'));
-                de = $('#' + data).detach();
-                de.appendTo($(this));
-
-            };
-        });
-    })
-    </script>
-    <script>
-      function addElement() {
-        var table = document.getElementById("options");
-        var row = table.insertRow(0);
-        var cell = document.createElement("TD");
-        cell.setAttribute("style", "background-color: red;");
-        var cell = row.insertCell(0);
-        cell.innerHTML = document.getElementById("courseId").value;
-        // $('img').attr('draggable', false);
-
-      }
-      // <td><span class="event" id="item1" draggable="true">CS3</span></td>
-
-    // function addElement()
-    //   {
-    //    // use getElementById() method
-    //    // If the element is found, the method will return the element as an object   
-    //    // If the element is not found, a null is returned   
-    //      var course = document.getElementById("courseId").value;
-    //      // var removeoption = "<input type=button value=' X ' onClick='delRow()'>";
-         
-    //      // Another way to validate taskdesc is to have the checking here 
-    //      // (instead of using an addEventListener() and the validateTaskDesc() function above).       
-    //      // if (courseId === '')    // check if appropriate data are entered
-    //      // {
-    //      //    document.getElementById("taskdesc").focus();
-    //      //    document.getElementById("taskdesc-note").innerHTML = "Please enter a course ID";
-    //      // } 
-    //      // else
-    //      // {
-    //      //  document.getElementById("taskdesc-note").innerHTML = ""; 
-          
-    //      //    if (due === '' || isNaN((new Date(due)).valueOf()))
-    //      //    {        
-    //      //       document.getElementById("duedate").focus();
-    //      //       document.getElementById("duedate-note").innerHTML = 
-    //      //            "Date must be in <code>mm/dd/yyyy</code> or <code>mm/dd/yy</code> format and " + 
-    //      //          "month and date must be in appropriate ranges";
-    //      //    }
-    //         // else
-    //         // {
-    //            // document.getElementById("duedate-note").innerHTML = "";
-          
-    //            // put all pieces of data in an array for later used to create cell content of a row 
-    //            var rowdata = [course];
-    //             <td><span class="event" id="item1" draggable="true">CS3</span></td>
-    //            // clear data entries (in the form)
-    //            document.getElementById("courseId").value = "";
-     
-    //            // find a <table> element to add row to (in this example, a table with id="todoTable")
-    //            var tableRef = document.getElementById("options");
-         
-    //            // create an empty <tr> element and add it to the table
-    //            // using insertRow(index) method
-    //            var newRow = tableRef.insertRow(tableRef.rows.length);    // table_object.rows.length returns the number of <tr> elements in the collection
-    //            // add event listener, on mouseover, set row index. This will be used when deleting a row
-    //            newRow.onmouseover = function() { 
-    //             // rowIndex returns the position of a row in the rows collection of a table
-    //               tableRef.clickedRowIndex = this.rowIndex;     
-    //            };    
-    //            // alternatively, use data-index to store index of the line 
-    //            //  (note: data-* attributes can store arbitrary data with elements)
-    //            // eg: <div id="elem" data-index=3></div>
-              
-    //            var newCell = "";       
-    //            var i = 0;
-    //            // insert new cells (<td> elements) at the 1st, 2nd, 3rd, 4th position of the new <tr> element
-    //            // using insertCell(method) method               
-    //            while (i < 4)
-    //            {
-    //               newCell = newRow.insertCell(i);
-    //               newCell.innerHTML = rowdata[i];
-    //               newCell.onmouseover = this.rowIndex;
-    //               i++;
-    //            }
-    //         }
-    //      }
-    //   }  
-
-
-    </script>
-
-    
-  </body>
 </html>
