@@ -17,6 +17,35 @@
 
 <body>
 
+
+	<?php
+	session_start();
+    if (isset($_SESSION['create']))
+    { 
+        require('connect-db.php');
+
+       $email = $_SESSION['email'];
+       $password = $_SESSION['password'];
+       $school = $_SESSION['school'];
+       $major = $_SESSION['major'];
+       $minor = $_SESSION['minor'];
+       
+       
+       $query = "INSERT INTO accounts (email, password, school, major, minor) VALUES (:email, :password, :school, :major, :minor)";
+       $statement = $db->prepare($query);
+       $statement->bindValue(':email', $email);
+       $statement->bindValue(':password', $password);
+       $statement->bindValue(':school', $school);
+       $statement->bindValue(':major', $major);
+       $statement->bindValue(':minor', $minor);
+       $statement->execute();
+       $statement->closeCursor();
+    }
+
+
+    $_SESSION['schedule'];
+    ?>
+
 	<nav class="navbar navbar-expand-md navbar-dark" style="background-color: #61C2A2">
         <a class="navbar-brand" href="#">Schedule4Me</a>
         <!-- Hamburger collapsible -->
