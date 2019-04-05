@@ -129,54 +129,45 @@
 
 
     <?php
+    session_start();
 
-	function reject($entry)
-	{
-	   exit();    // exit the current script, no value is returned
-	}
-
-	if ($_SERVER['REQUEST_METHOD'] == "POST" && strlen($_POST['lname']) > 0)
-	{
-	   $user = trim($_POST['lname']);
-	   if (!ctype_alnum($user))
-	      reject('User Name');
-			
-	   if (isset($_POST['lpass']))
-	   {
-	      $pwd = trim($_POST['lpass']);
-	      if (!ctype_alnum($pwd))
-	         reject('Password');
-	      else
-	      {
-	         setcookie('user', $user, time()+3600);
-	         setcookie('pwd', md5($pwd), time()+3600); 
-						
-	         header('Location: index3.php');
-	      }
-	   }
-	}
-
-
-    if ($_SERVER['REQUEST_METHOD'] == "POST" && strlen($_POST['cname']) > 0)
-    {
-       $user = trim($_POST['cname']);
-       if (!ctype_alnum($user))
-          reject('User Name');
-            
-       if (isset($_POST['cpass']))
-       {
-          $pwd = trim($_POST['cpass']);
-          if (!ctype_alnum($pwd))
-             reject('Password');
-          else
-          {
-             setcookie('user', $user, time()+3600);
-             setcookie('pwd', md5($pwd), time()+3600); 
-                        
-             header('Location: index3.php');
-          }
-       }
+    // LOG IN ~ CHECK IF USERNAME IS FOUND IN DATABASE
+    require('connect-db.php');
+    $username = "";
+    $password = "";
+    if (isset($_SESSION['use']) {
+        header('Location: index3.php');
     }
+
+    if (isset($_POST['lname']) && isset($_POST['lpass'])) {
+        $username = trim($_POST['lname']);
+        $password = trim($_POST['lpass']);
+
+        $query = "SELECT courses FROM courseID WHERE username='$username'";
+        $res_u = mysql_query($db, $query);
+
+        if (mysqli_num_rows($res_u) = 0) {
+            echo "Account does not exist...Please create an account.";
+        } else {
+            $query2 = "SELECT courses FROM courseID WHERE username='username' AND password='$password'";
+            $res_p = mysql_query($db, $query2);
+
+            if (mysqli_num_rows($res_p) = 0) {
+                echo "Password does not match username.";
+            } else {
+                setcookie('username', $username, time()+3600);
+                setcookie('password', md5($password), time()+3600); 
+                $_SESSION['username'] = $username;
+                $_SESSION['password'] = $password;
+                $_SESSION['use'] = $username;
+                        
+                header('Location: index3.php');   
+            }
+        }
+    }
+
+
+
 	?>
 
 
