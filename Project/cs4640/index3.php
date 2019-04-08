@@ -77,8 +77,56 @@
 
 	<div class = "left" style="color:#E8E8E8;">
         <div class ="general-req" >
-          <p><u>CLAS Requirements</u></p>
-          <form class= "check" action="/action_page.php">
+          <!-- <p><u>CLAS Requirements</u></p> -->
+          <?php 
+          	if (isset($_SESSION['school'])) {
+          		$_SESSION['school'] = $school;
+
+          		if ($school == 'College of Arts and Sciences') {
+          			echo "<html>";
+          			echo "<p>";
+          			echo "<u>";
+          			echo "CLAS Requirements:";
+          			echo "</p>";
+          			echo "</u>";
+          			echo "<form>";
+          			echo '<input type="checkbox"> First Writing <br>';
+          			echo '<input type="checkbox"> Second Writing <br>';
+          			echo '<input type="checkbox"> Social Science <br>';
+          			echo "</form>";
+          			echo "</html>";
+          		}
+          		if ($school == 'Engineering School') {
+          			echo "<html>";
+          			echo "<p>";
+          			echo "<u>";
+          			echo "$school Requirements:";
+          			echo "</p>";
+          			echo "</u>";
+          			echo "<form>";
+          			echo '<input type="checkbox"> STS 101 <br>';
+          			echo '<input type="checkbox"> STS 102 <br>';
+          			echo '<input type="checkbox"> STS 103 <br>';
+          			echo "</form>";
+          			echo "</html>";
+          		}
+          		if ($school == 'Nursing School') {
+          			echo "<html>";
+          			echo "<p>";
+          			echo "<u>";
+          			echo "$school Requirements:";
+          			echo "</p>";
+          			echo "</u>";
+          			echo "<form>";
+          			echo '<input type="checkbox"> Nursing 101 <br>';
+          			echo '<input type="checkbox"> Nursing 102 <br>';
+          			echo '<input type="checkbox"> Nursing 103 <br>';
+          			echo "</form>";
+          			echo "</html>";
+          		}
+          	}
+          	?>
+<!--           <form class= "check" action="/action_page.php">
             <input type="checkbox" class="req"> Foreign Language Requirement<br>
             <input type="checkbox" name="req"> First Writing Requirement<br>
             <input type="checkbox" name="req"> Second Writing Requirement<br><br>
@@ -87,7 +135,7 @@
             <input type="checkbox" name="req"> Historical Studies<br>
             <input type="checkbox" name="req"> Non-Western Perspective<br>
             <input type="checkbox" name="req"> Natural Science and Mathematics<br>
-          </form>
+          </form> -->
 
         </div>
 
@@ -95,20 +143,124 @@
         <br>
         <br>
         <br>
-        <br>
 
         <div class ="major-req">
-          <p><u>Major: Computer Science</u></p>
-          <form class= "check" action="/action_page.php">
-            <input type="checkbox" name="req"> CS 1110<br>
-            <input type="checkbox" name="req"> CS 2110<br>
-            <input type="checkbox" name="req"> CS 2102<br>
-            <input type="checkbox" name="req"> CS 2150<br>
-            <input type="checkbox" name="req"> CS 3330<br>
-            <input type="checkbox" name="req"> CS 4102<br>
-            <input type="checkbox" name="req"> Computing Electives<br>
-            <input type="checkbox" name="req"> Integrative Electives<br><br>
-          </form>
+          <!-- <p><u>Major: Computer Science</u></p> -->
+
+          <?php 
+          	if (isset($_SESSION['major'])) {
+          		$_SESSION['major'] = $major;
+
+          		if ($major == 'Accounting') {
+          			echo "<html>";
+          			echo "<p>";
+          			echo "<u>";
+          			echo "$major Major Requirements:";
+          			echo "</p>";
+          			echo "</u>";
+          			echo "<form>";
+          			echo '<input type="checkbox"> Accounting 101 <br>';
+          			echo '<input type="checkbox"> Accounting 102 <br>';
+          			echo '<input type="checkbox"> Accounting 103 <br>';
+          			echo "</form>";
+          			echo "</html>";
+          		}
+          		if ($major == 'Business') {
+          			echo "<html>";
+          			echo "<p>";
+          			echo "<u>";
+          			echo "$major Major Requirements:";
+          			echo "</p>";
+          			echo "</u>";
+          			echo "<form>";
+          			echo '<input type="checkbox"> Business 101 <br>';
+          			echo '<input type="checkbox"> Business 102 <br>';
+          			echo '<input type="checkbox"> Business 103 <br>';
+          			echo "</form>";
+          			echo "</html>";
+          		}
+          		if ($major == 'Finance') {
+          			echo "<html>";
+          			echo "<p>";
+          			echo "<u>";
+          			echo "$major Major Requirements:";
+          			echo "</p>";
+          			echo "</u>";
+          			echo "<form>";
+          			echo '<input type="checkbox"> Finance 101 <br>';
+          			echo '<input type="checkbox"> Finance 102 <br>';
+          			echo '<input type="checkbox"> Finance 103 <br>';
+          			echo "</form>";
+          			echo "</html>";
+
+          			// <html>
+          			// <body>
+	          		// 	<form class= "check" action="/action_page.php">
+				         //    <input type="checkbox" name="req"> CS 1110<br>
+				         //    <input type="checkbox" name="req"> CS 2110<br>
+				         //    <input type="checkbox" name="req"> CS 2102<br>
+				         //    <input type="checkbox" name="req"> CS 2150<br>
+				         //    <input type="checkbox" name="req"> CS 3330<br>
+				         //    <input type="checkbox" name="req"> CS 4102<br>
+				         //    <input type="checkbox" name="req"> Computing Electives<br>
+				         //    <input type="checkbox" name="req"> Integrative Electives<br><br>
+			          // 	</form>
+          			// </body>
+          			// </html>
+          		}
+          	}
+          	?>
+
+        </div>
+        <div class ="minor-req" >
+          <?php 
+          	if (isset($_SESSION['minor'])) {
+          		$_SESSION['minor'] = $minor;
+
+          		if ($school == 'Accounting') {
+          			echo "<html>";
+          			echo "<p>";
+          			echo "<u>";
+          			echo "$major Minor Requirements:";
+          			echo "</p>";
+          			echo "</u>";
+          			echo "<form>";
+          			echo '<input type="checkbox"> Accounting 101 <br>';
+          			echo '<input type="checkbox"> Accounting 102 <br>';
+          			echo '<input type="checkbox"> Accounting 103 <br>';
+          			echo "</form>";
+          			echo "</html>";
+          		}
+          		if ($major == 'Business') {
+          			echo "<html>";
+          			echo "<p>";
+          			echo "<u>";
+          			echo "$major Minor Requirements:";
+          			echo "</p>";
+          			echo "</u>";
+          			echo "<form>";
+          			echo '<input type="checkbox"> Business 101 <br>';
+          			echo '<input type="checkbox"> Business 102 <br>';
+          			echo '<input type="checkbox"> Business 103 <br>';
+          			echo "</form>";
+          			echo "</html>";
+          		}
+          		if ($major == 'Finance') {
+          			echo "<html>";
+          			echo "<p>";
+          			echo "<u>";
+          			echo "$major Minor Requirements:";
+          			echo "</p>";
+          			echo "</u>";
+          			echo "<form>";
+          			echo '<input type="checkbox"> Finance 101 <br>';
+          			echo '<input type="checkbox"> Finance 102 <br>';
+          			echo '<input type="checkbox"> Finance 103 <br>';
+          			echo "</form>";
+          			echo "</html>";
+          		}
+          	}
+          	?>
         </div>
 	</div>
 
