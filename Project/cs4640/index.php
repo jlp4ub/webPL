@@ -39,68 +39,162 @@
     session_start();
 
     // LOG IN ~ CHECK IF EMAIL IS FOUND IN DATABASE
-    require('connect-db.php');
+    //require('connect-db.php');
     // require('database.php');
-    $email = "";
-    $password = "";
+    //$email = "";
+    //$password = "";
     // if (isset($_SESSION['use'])) {
     //     header('Location: index3.php');
     // }
     
-    if (isset($_POST['lname']) && isset($_POST['lpass'])) {
-        $email = $_POST['lname'];
-        $password = $_POST['lpass'];
-
-        $query = "SELECT accounts FROM email WHERE email='$email'";
-        $res_u = mysqli_query($db, $query);
-        echo 'hello' . $res_u;
-
-        if (mysqli_num_rows($res_u) == 0) {
-            // echo "Account does not exist...Please create an account.";
+    if (isset($_GET['lname']) && isset($_GET['lpass'])) {
+        $username = $_GET['lname'];
+        $pass = $_GET['lpass'];
+        //REMEMBER TO CHANGE USERNAME, DB, AND PASSWORD ACCORDINGLY 
+        $db = mysqli_connect('localhost:3306', 'jlp4ub', 'password', 'jlp4ub');
+        if($_SERVER["REQUEST_METHOD"] == "GET") {
+            
+            $sql = "SELECT email FROM accounts WHERE email = '$username'";
+            $result = mysqli_query($db,$sql);
+            $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+            //$active = $row['active'];
+              
+            $count = mysqli_num_rows($result);
+        }
+        if ($count == 0) {
+            
             echo "<script type='text/javascript'>alert('Account does not exist...Please create an account.');</script>";
         } else {
-            $query2 = "SELECT accounts FROM email,password WHERE email='$email' AND password='$password'";
-            $res_p = mysqli_query($db, $query2);
-
-            if (mysqli_num_rows($res_p) == 0) {
+            $query2 = "SELECT email, password FROM accounts WHERE email='$username' AND password='$pass'";
+            $result2 = mysqli_query($db, $query2);
+            $row2 = mysqli_fetch_array($result2,MYSQLI_ASSOC);
+            //$active = $row['active'];
+              
+            $count2 = mysqli_num_rows($result2);
+            if ($count2 == 0) {
                 echo "<script type='text/javascript'>alert('Password does not match email.');</script>";
             } else {
                 setcookie('email', $email, time()+3600);
                 setcookie('password', md5($password), time()+3600); 
-                $_SESSION['email'] = $email;
-                $_SESSION['password'] = $password;
-                $_SESSION['use'] = $email;
+                $_SESSION['email'] = $username;
+                $_SESSION['password'] = $pass;
+                //$_SESSION['use'] = $email;
                         
                 header('Location: index3.php'); 
             }
         }
     }
-
-    //CREATE ACCOUNT ~ CHECK IF EMAIL IS ALREADY IN USE IN DATABASE
+    // ------------- CREATE ACCOUNT ~ CHECK IF EMAIL IS ALREADY IN USE IN DATABASE -------------
     if (isset($_POST['cname']) && isset($_POST['cpass'])) {
-        $email = $_POST['cname'];
-        $password = $_POST['cpass'];
-
-        $query = "SELECT accounts FROM email WHERE email='$email'";
-        $res_u = mysqli_query($db, $query);
-
-        if (mysqli_num_rows($res_u) > 0) {
-            // echo "Account does not exist...Please create an account.";
+        $username = $_POST['cname'];
+        $pass = $_POST['cpass'];
+        $school = $_POST['school'];
+        $major = $_POST['major'];
+        $minor = $_POST['minor'];
+        $db = mysqli_connect('localhost:3306', 'jlp4ub', 'password', 'jlp4ub');
+        //$query = "SELECT accounts FROM email WHERE username = '$email'";
+        $query3 = "SELECT email FROM accounts WHERE email='$username'";
+        $result3 = mysqli_query($db,$query3);
+        $row = mysqli_fetch_array($result3, MYSQLI_ASSOC);
+            //$active = $row['active'];
+              
+        $count3 = mysqli_num_rows($result3);
+        if ($count3 > 0) {
+            // echo "Account already exists...Please login.";
             echo "<script type='text/javascript'>alert('Email is already in use.');</script>";
+        } else{ 
+            setcookie('email', $email, time()+3600);
+            setcookie('password', md5($password), time()+3600); 
+            // $_SESSION['email'] = $username;
+            // $_SESSION['password'] = $pass;
+            // $_SESSION['create'] = $_POST['create'];
+            // $_SESSION['school'] = $_POST['school'];
+            // $_SESSION['major'] = $_POST['major'];
+            // $_SESSION['minor'] = $_POST['minor'];
+            // $_SESSION['use'] = $email;
+            
+            $query = "INSERT INTO accounts (email, password, school, major, minor) VALUES ('$username', '$pass', '$school','$major', '$minor')";
+            mysqli_query($db, $query);
+
+            if ($school == 'College of Arts and Sciences') {
+                $q1 = "INSERT INTO college (email) VALUES('$username')";
+                mysqli_query($db, $q1);
+
+                if ($major == 'Accounting') {
+                    $q2 = "INSERT INTO accounting (email) VALUES('$username')";
+                    mysqli_query($db, $q2);
+                }
+                if ($major == 'Finance') {
+                    $q3 = "INSERT INTO finance (email) VALUES('$username')";
+                    mysqli_query($db, $q3);
+                }
+                if ($major == 'Business') {
+                    $q4 = "INSERT INTO business (email) VALUES('$username')";
+                    mysqli_query($db, $q4);
+                }
+            }
+            if ($school == 'Engineering School') {
+                $q1 = "INSERT INTO eSchool (email) VALUES('$username')";
+                mysqli_query($db, $q1);
+
+                if ($major == 'Accounting') {
+                    $q2 = "INSERT INTO accounting (email) VALUES('$username')";
+                    mysqli_query($db, $q2);
+                }
+                if ($major == 'Finance') {
+                    $q3 = "INSERT INTO finance (email) VALUES('$username')";
+                    mysqli_query($db, $q3);
+                }
+                if ($major == 'Business') {
+                    $q4 = "INSERT INTO business (email) VALUES('$username')";
+                    mysqli_query($db, $q4);
+                }
+            }
+            if ($school == 'Architecture') {
+                $q1 = "INSERT INTO aSchool (email) VALUES('$username')";
+                mysqli_query($db, $q1);
+
+                if ($major == 'Accounting') {
+                    $q2 = "INSERT INTO accounting (email) VALUES('$username')";
+                    mysqli_query($db, $q2);
+                }
+                if ($major == 'Finance') {
+                    $q3 = "INSERT INTO finance (email) VALUES('$username')";
+                    mysqli_query($db, $q3);
+                }
+                if ($major == 'Business') {
+                    $q4 = "INSERT INTO business (email) VALUES('$username')";
+                    mysqli_query($db, $q4);
+                }
+            }
+            if ($school == 'Nursing School') {
+                $q1 = "INSERT INTO nSchool (email) VALUES('$username')";
+                mysqli_query($db, $q1);
+
+                if ($major == 'Accounting') {
+                    $q2 = "INSERT INTO accounting (email) VALUES('$username')";
+                    mysqli_query($db, $q2);
+                }
+                if ($major == 'Finance') {
+                    $q3 = "INSERT INTO finance (email) VALUES('$username')";
+                    mysqli_query($db, $q3);
+                }
+                if ($major == 'Business') {
+                    $q4 = "INSERT INTO business (email) VALUES('$username')";
+                    mysqli_query($db, $q4);
+                }
+            }
+            
+            $_SESSION['email'] = $username;
+            $_SESSION['password'] = $pass;
+            $_SESSION['school'] = $school;
+            $_SESSION['major'] = $major;
+            $_SESSION['minor'] = $minor;
+            $_SESSION['use'] = $username;
+            header('Location: index3.php'); 
+
         }
-
-        setcookie('email', $email, time()+3600);
-        setcookie('password', md5($password), time()+3600); 
-        $_SESSION['email'] = $email;
-        $_SESSION['password'] = $password;
-        $_SESSION['create'] = $_POST['create'];
-        $_SESSION['school'] = $_POST['school'];
-        $_SESSION['major'] = $_POST['major'];
-        $_SESSION['minor'] = $_POST['minor'];
-
-        $_SESSION['use'] = $email;
-                        
-        header('Location: index3.php'); 
+        
     }
     ?>
 
@@ -131,7 +225,7 @@
 
 <!-- LOG IN -->
         <div id="login" class="col-md-5" style="float:right;">
-            <form id="returnuser" onsubmit="return validateLoginForm()" method="post">
+            <form id="returnuser" onsubmit="return validateLoginForm()" method="GET">
                 <div class="panel-login">
 
                     <div class="sign-in-title">
@@ -162,7 +256,7 @@
                         <datalist id="schools">
                             <option value = "College of Arts and Sciences">
                             <option value = "Engineering School">
-                            <option value = "Nursing School">    
+                            <option value = "Architecture">    
                         </datalist>
                     </div>
                     <div>
@@ -201,18 +295,8 @@
 </body>
     
 <script>
-    /*
-    function validateLoginForm(){
-
-        var email = document.forms["returnuser"]["name"].value;
-        if (email==""){
-            alert("Email must be filled out");
-            return false;
-        }
-    }*/
     
     document.getElementById("button").addEventListener("click", function(e){
-
         var name = document.getElementById("lname").value;
         var nameRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+\.edu$/;
         
@@ -223,12 +307,8 @@
             alert('Please enter an @virginia.edu email');
             e.preventDefault();
         }
-
     });
-
-
     function validateCreateForm(){
-
         var pass = document.getElementById("cpass");
         var pass2 = document.getElementById("confirmpass");
         if (pass.value != pass2.value){
@@ -242,7 +322,6 @@
         var name = document.getElementById("cname").value;
         // alert("hi");
         var nameRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+\.edu$/;
-
         if (nameRegex.test(name) == true) {
             // alert('true');
             return true;
