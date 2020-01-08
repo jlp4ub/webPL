@@ -24,50 +24,100 @@
     session_start();
     
     $username = $_SESSION['email'];
-    //echo $username;
-
+    $sch = $_SESSION['school'];
+    $maj = $_SESSION['major'];
     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-      //print_r($_POST);
-      $db = mysqli_connect('localhost:3306', 'cs4640', 'password', 'cs4640');
-      //echo "/n";
+      $db = mysqli_connect('localhost:3306', 'jlp4ub', 'password', 'jlp4ub');
       $check = 1;
       $columns=array();
-      //print_r($columns);
+      //$columns2=array();
       foreach ($_POST as $key=>$value){
         array_push($columns, $value);
+        //array_push($columns2, $value);
+
       }
   
-      //print_r(array_values($columns[0]));
       $db_values = $columns[0];
-      //print_r($db_values);
-      //$query = "INSERT INTO requirements "
+      //$db_values2 = $columns2[0];
 
-      foreach ($db_values as $key => $value) {
-        //echo $key.":".$value."<br>";
-        //echo $value;
-        $sql = "SELECT $value FROM requirements WHERE email='$username'";
-        //echo $sql;
-        $vset = mysqli_query($db, $sql);
-        $row = mysqli_fetch_array($vset, MYSQLI_NUM);
-        $num = $row[0];
-        $num = $num+1;
-        //echo $num;
-        //print_r($row);
-        //echo $vset;
-        // if ($num == 1){
-        //   $num = 0;
-        // } else {
-        //   $num = 1;
-        // }
-  
-
-        $query = "UPDATE requirements SET $value=$num WHERE email ='$username'";
-        mysqli_query($db, $query);
+      if ($sch == 'College of Arts and Sciences') {
+        foreach ($db_values as $key => $value) {
+          $sql = "SELECT $value FROM college WHERE email='$username'";
+          $vset = mysqli_query($db, $sql);
+          $row = mysqli_fetch_array($vset, MYSQLI_NUM);
+          $num = $row[0];
+          $num = $num+1;
+          $query = "UPDATE college SET $value=$num WHERE email ='$username'";
+          mysqli_query($db, $query);
+        }
       }
-      
+      if ($maj == 'Accounting') {
+        foreach ($db_values as $key => $value) {
+          $sql2 = "SELECT $value FROM accounting WHERE email='$username'";
+          $vset2 = mysqli_query($db, $sql2);
+          $row2 = mysqli_fetch_array($vset, MYSQLI_NUM);
+          $num2 = $row2[0];
+          $num2 = $num2+1;
+          $query2 = "UPDATE accounting SET $value=$num WHERE email ='$username'";
+          mysqli_query($db, $query2);
+        }
+      }
+      if ($sch == 'Engineering School') {
+        foreach ($db_values as $key => $value) {
+          $sql = "SELECT $value FROM eSchool WHERE email='$username'";
+          $vset = mysqli_query($db, $sql);
+          $row = mysqli_fetch_array($vset, MYSQLI_NUM);
+          $num = $row[0];
+          $num = $num+1;
+          $query = "UPDATE eSchool SET $value=$num WHERE email ='$username'";
+          mysqli_query($db, $query);
+        }
+      }
+      if ($sch == 'Architecture') {
+        foreach ($db_values as $key => $value) {
+          $sql = "SELECT $value FROM aSchool WHERE email='$username'";
+          $vset = mysqli_query($db, $sql);
+          $row = mysqli_fetch_array($vset, MYSQLI_NUM);
+          $num = $row[0];
+          $num = $num+1;
+          $query = "UPDATE aSchool SET $value=$num WHERE email ='$username'";
+          mysqli_query($db, $query);
+        }
+      }
+      if ($sch == 'Nursing School') {
+        foreach ($db_values as $key => $value) {
+          $sql = "SELECT $value FROM nSchool WHERE email='$username'";
+          $vset = mysqli_query($db, $sql);
+          $row = mysqli_fetch_array($vset, MYSQLI_NUM);
+          $num = $row[0];
+          $num = $num+1;
+          $query = "UPDATE nSchool SET $value=$num WHERE email ='$username'";
+          mysqli_query($db, $query);
+        }
+      }
+      if ($maj == 'Finance') {
+        foreach ($db_values as $key => $value) {
+          $sql = "SELECT $value FROM finance WHERE email='$username'";
+          $vset = mysqli_query($db, $sql);
+          $row = mysqli_fetch_array($vset, MYSQLI_NUM);
+          $num = $row[0];
+          $num = $num+1;
+          $query = "UPDATE finance SET $value=$num WHERE email ='$username'";
+          mysqli_query($db, $query);
+        }
+      }
+      if ($maj == 'Business') {
+        foreach ($db_values as $key => $value) {
+          $sql = "SELECT $value FROM business WHERE email='$username'";
+          $vset = mysqli_query($db, $sql);
+          $row = mysqli_fetch_array($vset, MYSQLI_NUM);
+          $num = $row[0];
+          $num = $num+1;
+          $query = "UPDATE business SET $value=$num WHERE email ='$username'";
+          mysqli_query($db, $query);
+        }
+      }
     }
-
-
     ?>
 
   <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #61C2A2">
@@ -98,61 +148,45 @@
           </ul>
         </div>  
       </nav>
-<!-- style="color:#E8E8E8;" -->
+
   <div class = "left" style="color:#E8E8E8; height:95%">
       <form name="check" action='' method="post">
         <div class ="general-req" >
-          <p><u>CLAS Requirements</u></p>
+          <!-- <p><u>CLAS Requirements</u></p> -->
             <?php
-              //if (isset($_SESSION['create'])){
-              //require('connect-db.php');
-              $db = mysqli_connect('localhost:3306', 'cs4640', 'password', 'cs4640');
-              //print_r($_SESSION);
+              $db = mysqli_connect('localhost:3306', 'jlp4ub', 'password', 'jlp4ub');
+              
               $username = $_SESSION['email'];
-              //echo $username;
-              $school = $_SESSION['school'];
-              //echo $school;
-              $checkboxes=array();
-
-              if ($school == 'College of Arts and Sciences'){
+              $sch = $_SESSION['school'];
+              if ($sch == 'College of Arts and Sciences'){
+                echo 'CLAS Requirements';
                 
-                $query="SELECT * FROM requirements WHERE email='$username'";
+                $query="SELECT * FROM college WHERE email='$username'";
                 $result=mysqli_query($db, $query);
                 $row = mysqli_fetch_array($result, MYSQLI_NUM);
-                //print_r($row);
-
                 $checkboxes=array();
-
-                // for($i=1; $i<10; $i++){
-                //   //print_r($row[$i]);
-                //   $checkboxes[]='<input type="checkbox" value=row>;
-                // }
                 $checkboxes[0]='<br>';
                 $checkboxes[1]='<input type="checkbox" id="1" name="row[1]" value="foreignlang" onclick="task(this.id);"> Foreign Language Requirement<br>';
                 $checkboxes[2]='<input type="checkbox" id="2" name="row[2]" value="firstwrite" onclick="task(this.id);"> First Writing Requirement<br><br>';
-
-                $checkboxes[3]='<input type="checkbox" id="3" name="row[3]" value="secondwrite" onclick="task(this.id);"  > Second Writing Requirement<br><br>';
-
-                $checkboxes[4]='<input type="checkbox" id="4" name="row[4]" value="socialscience" onclick="task(this.id);"> Social Sciences<br><br>';
+                $checkboxes[3]='<input type="checkbox" id="3" name="row[3]" value="secondwrite" onclick="task(this.id);"  > Second Writing Requirement<br>';
+                $checkboxes[4]='<input type="checkbox" id="4" name="row[4]" value="socialscience" onclick="task(this.id);"> Social Sciences<br>';
               
                 $checkboxes[5]='<input type="checkbox" id="5" name="row[5]" value="humanities" onclick="task(this.id);"> Humanities<br>';
                
                 $checkboxes[6]='<input type="checkbox" id="6" name="row[6]" value="history" onclick="task(this.id);"> Historical Studies<br>';              
-
                 $checkboxes[7]='<input type="checkbox" id="7" name="row[7]" value="nonwest" onclick="task(this.id);"> Non-Western Perspective<br>';
               
                 $checkboxes[8]='<input type="checkbox" id="8" name="row[8]" value="science" onclick="task(this.id);"> Natural Science and Mathematics<br>';
              
                 
-
-                $checkboxes[9]='<input type="hidden" id="hidden1" name="row[1]" value="foreignlang" onclick="task(this.id);">';
-                $checkboxes[10]='<input type="hidden" id="hidden2" name="row[2]" value="firstwrite" onclick="task(this.id);">';
-                $checkboxes[11]='<input type="hidden" id="hidden3" name="row[3]" value="secondwrite" onclick="task(this.id);">';
-                $checkboxes[12]='<input type="hidden" id="hidden4" name="row[4]" value="socialscience" onclick="task(this.id);">';
-                $checkboxes[13]='<input type="hidden" id="hidden5" name="row[5]" value="humanities" onclick="task(this.id);">';
-                $checkboxes[14]='<input type="hidden" id="hidden6" name="row[6]" value="history" onclick="task(this.id);">';
-                $checkboxes[15]='<input type="hidden" id="hidden7" name="row[7]" value="nonwest" onclick="task(this.id);">';
-                $checkboxes[16]='<input type="hidden" id="hidden8" name="row[8]" value="science" onclick="task(this.id);">';
+                // $checkboxes[9]='<input type="hidden" id="hidden1" name="row[1]" value="foreignlang" onclick="task(this.id);">';
+                // $checkboxes[10]='<input type="hidden" id="hidden2" name="row[2]" value="firstwrite" onclick="task(this.id);">';
+                // $checkboxes[11]='<input type="hidden" id="hidden3" name="row[3]" value="secondwrite" onclick="task(this.id);">';
+                // $checkboxes[12]='<input type="hidden" id="hidden4" name="row[4]" value="socialscience" onclick="task(this.id);">';
+                // $checkboxes[13]='<input type="hidden" id="hidden5" name="row[5]" value="humanities" onclick="task(this.id);">';
+                // $checkboxes[14]='<input type="hidden" id="hidden6" name="row[6]" value="history" onclick="task(this.id);">';
+                // $checkboxes[15]='<input type="hidden" id="hidden7" name="row[7]" value="nonwest" onclick="task(this.id);">';
+                // $checkboxes[16]='<input type="hidden" id="hidden8" name="row[8]" value="science" onclick="task(this.id);">';
                 foreach ($row as $key=>$value){
                   //echo $key.":".$value."<br>";
                   //echo $value;
@@ -163,10 +197,8 @@
                   }
                   
                   if ($mod != 0){
-
                       $print = $checkboxes[$key];
                       $index = strpos($print, ">");
-
                       $str = 'checked';
                       $checkboxes[$key]= substr_replace($print, $str, $index, 0);
             
@@ -177,55 +209,343 @@
                 }
                 echo implode($checkboxes);
                 //echo implode($hidden_checkboxes);
-                echo "<input type='submit' name='Update' value='Save'/>";
+                // echo "<input type='submit' name='Update' value='Save'/>";
                 
                 
                 //while ($row = mysqli_fetch_array($result, MYSQLI_NUM)){
                 //  print_r($row);
                 //}
+              } if ($sch == 'Engineering School'){
+                echo 'Engineering Requirements';
+                
+                $query="SELECT * FROM eSchool WHERE email='$username'";
+                $result=mysqli_query($db, $query);
+                $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                //print_r($row);
+                $checkboxes=array();
+                // for($i=1; $i<10; $i++){
+                //   //print_r($row[$i]);
+                //   $checkboxes[]='<input type="checkbox" value=row>;
+                // }
+                $checkboxes[0]='<br>';
+                $checkboxes[1]='<input type="checkbox" id="1" name="row[1]" value="e1" onclick="task(this.id);"> Engineering1 Requirement<br>';
+                $checkboxes[2]='<input type="checkbox" id="2" name="row[2]" value="e2" onclick="task(this.id);"> Engineering2 Requirement<br>';
+                $checkboxes[3]='<input type="checkbox" id="3" name="row[3]" value="e3" onclick="task(this.id);"  > Engineering3 Requirement<br>';
+                $checkboxes[4]='<input type="checkbox" id="4" name="row[4]" value="e4" onclick="task(this.id);"> Engineering4 Requirement<br>';
+              
+                $checkboxes[5]='<input type="checkbox" id="5" name="row[5]" value="e5" onclick="task(this.id);"> Engineering5 Requirement<br>';
+               
+                $checkboxes[6]='<input type="checkbox" id="6" name="row[6]" value="e6" onclick="task(this.id);"> Engineering6 Requirement<br>';              
+                $checkboxes[7]='<input type="checkbox" id="7" name="row[7]" value="e7" onclick="task(this.id);"> Engineering7 Requirement<br>';
+              
+                $checkboxes[8]='<input type="checkbox" id="8" name="row[8]" value="e8" onclick="task(this.id);"> Engineering8 Requirement<br>';
+             
+                
+                $checkboxes[9]='<input type="hidden" id="hidden1" name="row[1]" value="e1" onclick="task(this.id);">';
+                $checkboxes[10]='<input type="hidden" id="hidden2" name="row[2]" value="e2" onclick="task(this.id);">';
+                $checkboxes[11]='<input type="hidden" id="hidden3" name="row[3]" value="e3" onclick="task(this.id);">';
+                $checkboxes[12]='<input type="hidden" id="hidden4" name="row[4]" value="e4" onclick="task(this.id);">';
+                $checkboxes[13]='<input type="hidden" id="hidden5" name="row[5]" value="e5" onclick="task(this.id);">';
+                $checkboxes[14]='<input type="hidden" id="hidden6" name="row[6]" value="e6" onclick="task(this.id);">';
+                $checkboxes[15]='<input type="hidden" id="hidden7" name="row[7]" value="e7" onclick="task(this.id);">';
+                $checkboxes[16]='<input type="hidden" id="hidden8" name="row[8]" value="e8" onclick="task(this.id);">';
+                foreach ($row as $key=>$value){
+                  //echo $key.":".$value."<br>";
+                  //echo $value;
+                  if ($value !=0){
+                    $mod = $value%2;
+                  } else{
+                    $mod = 0;
+                  }
+                  
+                  if ($mod != 0){
+                      $print = $checkboxes[$key];
+                      $index = strpos($print, ">");
+                      $str = 'checked';
+                      $checkboxes[$key]= substr_replace($print, $str, $index, 0);
+            
+                    
+                    //echo $checkboxes[$key];
+                    //$checkboxes[$key]=
+                  }
+                }
+                echo implode($checkboxes);
+                //echo implode($hidden_checkboxes);
+                // echo "<input type='submit' name='Update' value='Save'/>";
+                
+                
+                //while ($row = mysqli_fetch_array($result, MYSQLI_NUM)){
+                //  print_r($row);
+                //}
+              } if ($sch == 'Architecture'){
+                echo 'Architecture Requirements';
+                $query="SELECT * FROM aSchool WHERE email='$username'";
+                $result=mysqli_query($db, $query);
+                $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                //print_r($row);
+                $checkboxes=array();
+                // for($i=1; $i<10; $i++){
+                //   //print_r($row[$i]);
+                //   $checkboxes[]='<input type="checkbox" value=row>;
+                // }
+                $checkboxes[0]='<br>';
+                $checkboxes[1]='<input type="checkbox" id="1" name="row[1]" value="a1" onclick="task(this.id);"> Architecture1 Requirement<br>';
+                $checkboxes[2]='<input type="checkbox" id="2" name="row[2]" value="a2" onclick="task(this.id);"> Architecture2 Requirement<br>';
+                $checkboxes[3]='<input type="checkbox" id="3" name="row[3]" value="a3" onclick="task(this.id);"  > Architecture3 Requirement<br>';
+                $checkboxes[4]='<input type="checkbox" id="4" name="row[4]" value="a4" onclick="task(this.id);"> Architecture4 Requirement<br>';
+              
+                $checkboxes[5]='<input type="checkbox" id="5" name="row[5]" value="a5" onclick="task(this.id);"> Architecture5 Requirement<br>';
+               
+                $checkboxes[6]='<input type="checkbox" id="6" name="row[6]" value="a6" onclick="task(this.id);"> Architecture6 Requirement<br>';              
+                $checkboxes[7]='<input type="checkbox" id="7" name="row[7]" value="a7" onclick="task(this.id);"> Architecture7 Requirement<br>';
+              
+                $checkboxes[8]='<input type="checkbox" id="8" name="row[8]" value="a8" onclick="task(this.id);"> Architecture8 Requirement<br>';
+             
+                
+                $checkboxes[9]='<input type="hidden" id="hidden1" name="row[1]" value="a1" onclick="task(this.id);">';
+                $checkboxes[10]='<input type="hidden" id="hidden2" name="row[2]" value="a2" onclick="task(this.id);">';
+                $checkboxes[11]='<input type="hidden" id="hidden3" name="row[3]" value="a3" onclick="task(this.id);">';
+                $checkboxes[12]='<input type="hidden" id="hidden4" name="row[4]" value="a4" onclick="task(this.id);">';
+                $checkboxes[13]='<input type="hidden" id="hidden5" name="row[5]" value="a5" onclick="task(this.id);">';
+                $checkboxes[14]='<input type="hidden" id="hidden6" name="row[6]" value="a6" onclick="task(this.id);">';
+                $checkboxes[15]='<input type="hidden" id="hidden7" name="row[7]" value="a7" onclick="task(this.id);">';
+                $checkboxes[16]='<input type="hidden" id="hidden8" name="row[8]" value="a8" onclick="task(this.id);">';
+                foreach ($row as $key=>$value){
+                  //echo $key.":".$value."<br>";
+                  //echo $value;
+                  if ($value !=0){
+                    $mod = $value%2;
+                  } else{
+                    $mod = 0;
+                  }
+                  
+                  if ($mod != 0){
+                      $print = $checkboxes[$key];
+                      $index = strpos($print, ">");
+                      $str = 'checked';
+                      $checkboxes[$key]= substr_replace($print, $str, $index, 0);
+            
+                    
+                    //echo $checkboxes[$key];
+                    //$checkboxes[$key]=
+                  }
+                }
+                echo implode($checkboxes);
+                //echo implode($hidden_checkboxes);
+                // echo "<input type='submit' name='Update' value='Save'/>";
+                
+                
+                //while ($row = mysqli_fetch_array($result, MYSQLI_NUM)){
+                //  print_r($row);
+                //}
+              } if ($sch == 'Nursing School'){
+                echo 'Nursing School Requirements';
+                
+                $query="SELECT * FROM nSchool WHERE email='$username'";
+                $result=mysqli_query($db, $query);
+                $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                //print_r($row);
+                $checkboxes=array();
+                // for($i=1; $i<10; $i++){
+                //   //print_r($row[$i]);
+                //   $checkboxes[]='<input type="checkbox" value=row>;
+                // }
+                $checkboxes[0]='<br>';
+                $checkboxes[1]='<input type="checkbox" id="1" name="row[1]" value="n1" onclick="task(this.id);"> N1 Requirement<br>';
+                $checkboxes[2]='<input type="checkbox" id="2" name="row[2]" value="n2" onclick="task(this.id);"> N2 Requirement<br>';
+                $checkboxes[3]='<input type="checkbox" id="3" name="row[3]" value="n3" onclick="task(this.id);"  > N3 Requirement<br>';
+                $checkboxes[4]='<input type="checkbox" id="4" name="row[4]" value="n4" onclick="task(this.id);"> N4 Requirement<br>';
+              
+                $checkboxes[5]='<input type="checkbox" id="5" name="row[5]" value="n5" onclick="task(this.id);"> N5 Requirement<br>';
+               
+                $checkboxes[6]='<input type="checkbox" id="6" name="row[6]" value="n6" onclick="task(this.id);"> N6 Requirement<br>';              
+                $checkboxes[7]='<input type="checkbox" id="7" name="row[7]" value="n7" onclick="task(this.id);"> N7 Requirement<br>';
+              
+                $checkboxes[8]='<input type="checkbox" id="8" name="row[8]" value="n8" onclick="task(this.id);"> N8 Requirement<br>';
+             
+                
+                $checkboxes[9]='<input type="hidden" id="hidden1" name="row[1]" value="n1" onclick="task(this.id);">';
+                $checkboxes[10]='<input type="hidden" id="hidden2" name="row[2]" value="n2" onclick="task(this.id);">';
+                $checkboxes[11]='<input type="hidden" id="hidden3" name="row[3]" value="n3" onclick="task(this.id);">';
+                $checkboxes[12]='<input type="hidden" id="hidden4" name="row[4]" value="n4" onclick="task(this.id);">';
+                $checkboxes[13]='<input type="hidden" id="hidden5" name="row[5]" value="n5" onclick="task(this.id);">';
+                $checkboxes[14]='<input type="hidden" id="hidden6" name="row[6]" value="n6" onclick="task(this.id);">';
+                $checkboxes[15]='<input type="hidden" id="hidden7" name="row[7]" value="n7" onclick="task(this.id);">';
+                $checkboxes[16]='<input type="hidden" id="hidden8" name="row[8]" value="n8" onclick="task(this.id);">';
+                foreach ($row as $key=>$value){
+                  //echo $key.":".$value."<br>";
+                  //echo $value;
+                  if ($value !=0){
+                    $mod = $value%2;
+                  } else{
+                    $mod = 0;
+                  }
+                  
+                  if ($mod != 0){
+                      $print = $checkboxes[$key];
+                      $index = strpos($print, ">");
+                      $str = 'checked';
+                      $checkboxes[$key]= substr_replace($print, $str, $index, 0);
+            
+                    
+                    //echo $checkboxes[$key];
+                    //$checkboxes[$key]=
+                  }
+                }
+                echo implode($checkboxes);
+                //echo implode($hidden_checkboxes);
+                // echo "<input type='submit' name='Update' value='Save'/>";
               }
-              //$checkboxes=array();
-              //$checkboxes[0]='<input type="checkbox" name="x" value="$row[9]"> Foreign Language Requirement<br>';
-              
-              
-              
             ?>
-          
-            <!-- <input type="checkbox" id="Lang"> Foreign Language Requirement<br>
-            <input type="checkbox" id="First"> First Writing Requirement<br>
-            <input type="checkbox" id="Second"> Second Writing Requirement<br><br>
-            <input type="checkbox" id="social"> Social Sciences<br>
-            <input type="checkbox" id="human"> Humanities<br>
-            <input type="checkbox" id="history"> Historical Studies<br>
-            <input type="checkbox" id="nonwest"> Non-Western Perspective<br>
-            <input type="checkbox" id="math"> Natural Science and Mathematics<br> -->
-     
-
         </div>
     </form>
 
         <br>
         <br>
-        <br>
-        <br>
-        <br>
 
         <div class ="major-req">
-          <p><u>Major: Computer Science</u></p>
+          <!-- <p><u>Major: Accounting</u></p> -->
+          <form name="check" action='' method="post">
 
-            <input type="checkbox" name="req"> CS 1110<br>
-            <input type="checkbox" name="req"> CS 2110<br>
-            <input type="checkbox" name="req"> CS 2102<br>
-            <input type="checkbox" name="req"> CS 2150<br>
-            <input type="checkbox" name="req"> CS 3330<br>
-            <input type="checkbox" name="req"> CS 4102<br>
-            <input type="checkbox" name="req"> Computing Electives<br>
-            <input type="checkbox" name="req"> Integrative Electives<br><br>
+          <?php
+              $db = mysqli_connect('localhost:3306', 'jlp4ub', 'password', 'jlp4ub');
+              $username = $_SESSION['email'];
+              $maj = $_SESSION['major'];
+              if ($maj == 'Accounting'){
+                echo 'Accounting Major Requirements';
+                
+                $query="SELECT * FROM accounting WHERE email='$username'";
+                $result=mysqli_query($db, $query);
+                $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                $checkboxes=array();
+                $checkboxes[19]='<br>';
+                $checkboxes[20]='<input type="checkbox" id="11" name="row[11]" value="ac1" onclick="task(this.id);"> Accounting1 Requirement<br>';
+                $checkboxes[21]='<input type="checkbox" id="21" name="row[21]" value="ac2" onclick="task(this.id);"> Accounting2 Requirement<br>';
+                $checkboxes[22]='<input type="checkbox" id="31" name="row[31]" value="ac3" onclick="task(this.id);"  > Accounting3 Requirement<br>';
+                $checkboxes[23]='<input type="checkbox" id="41" name="row[41]" value="ac4" onclick="task(this.id);"> Accounting4 Requirement<br>';
+                $checkboxes[24]='<input type="checkbox" id="51" name="row[51]" value="ac5" onclick="task(this.id);"> Accounting5 Requirement<br>';
+                $checkboxes[25]='<input type="checkbox" id="61" name="row[61]" value="ac6" onclick="task(this.id);"> Accounting6 Requirement<br>';       
+                $checkboxes[26]='<input type="checkbox" id="71" name="row[71]" value="ac7" onclick="task(this.id);"> Accounting7 Requirement<br>';
+                $checkboxes[27]='<input type="checkbox" id="81" name="row[81]" value="ac8" onclick="task(this.id);"> Accounting8 Requirement<br>';
+                // $checkboxes[26]='<input type="hidden" id="hidden11" name="row[11]" value="ac1" onclick="task(this.id);">';
+                // $checkboxes[27]='<input type="hidden" id="hidden21" name="row[21]" value="ac2" onclick="task(this.id);">';
+                // $checkboxes[28]='<input type="hidden" id="hidden31" name="row[31]" value="ac3" onclick="task(this.id);">';
+                // $checkboxes[29]='<input type="hidden" id="hidden41" name="row[41]" value="ac4" onclick="task(this.id);">';
+                // $checkboxes[30]='<input type="hidden" id="hidden51" name="row[51]" value="ac5" onclick="task(this.id);">';
+                // $checkboxes[31]='<input type="hidden" id="hidden61" name="row[61]" value="ac6" onclick="task(this.id);">';
+                // $checkboxes[32]='<input type="hidden" id="hidden71" name="row[71]" value="ac7" onclick="task(this.id);">';
+                // $checkboxes[33]='<input type="hidden" id="hidden81" name="row[81]" value="ac8" onclick="task(this.id);">';
+                foreach ($row as $key=>$value){
+                  if ($value !=0){
+                    $mod = $value%2;
+                  } else{
+                    $mod = 0;
+                  }
+                  
+                  if ($mod != 0){
+                      $print = $checkboxes[$key];
+                      $index = strpos($print, ">");
+                      $str = 'checked';
+                      $checkboxes[$key]= substr_replace($print, $str, $index, 0);
+                  }
+                }
+                echo implode($checkboxes);
+                // echo "<input type='submit' name='Update' value='Save'/>";
+              } if ($maj == 'Finance'){
+                echo 'Finance Major Requirements';
+                
+                $query="SELECT * FROM finance WHERE email='$username'";
+                $result=mysqli_query($db, $query);
+                $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                $checkboxes=array();
+                $checkboxes[0]='<br>';
+                $checkboxes[1]='<input type="checkbox" id="1" name="row[1]" value="f1" onclick="task(this.id);"> Finance1 Requirement<br>';
+                $checkboxes[2]='<input type="checkbox" id="2" name="row[2]" value="f2" onclick="task(this.id);"> Finance2 Requirement<br>';
+                $checkboxes[3]='<input type="checkbox" id="3" name="row[3]" value="f3" onclick="task(this.id);"  > Finance3 Requirement<br>';
+                $checkboxes[4]='<input type="checkbox" id="4" name="row[4]" value="f4" onclick="task(this.id);"> Finance4 Requirement<br>';
+              
+                $checkboxes[5]='<input type="checkbox" id="5" name="row[5]" value="f5" onclick="task(this.id);"> Finance5 Requirement<br>';
+               
+                $checkboxes[6]='<input type="checkbox" id="6" name="row[6]" value="f6" onclick="task(this.id);"> Finance6 Requirement<br>';              
+                $checkboxes[7]='<input type="checkbox" id="7" name="row[7]" value="f7" onclick="task(this.id);"> Finance7 Requirement<br>';
+              
+                $checkboxes[8]='<input type="checkbox" id="8" name="row[8]" value="f8" onclick="task(this.id);"> Finance8 Requirement<br>';
+             
+                
+                $checkboxes[9]='<input type="hidden" id="hidden1" name="row[1]" value="f1" onclick="task(this.id);">';
+                $checkboxes[10]='<input type="hidden" id="hidden2" name="row[2]" value="f2" onclick="task(this.id);">';
+                $checkboxes[11]='<input type="hidden" id="hidden3" name="row[3]" value="f3" onclick="task(this.id);">';
+                $checkboxes[12]='<input type="hidden" id="hidden4" name="row[4]" value="f4" onclick="task(this.id);">';
+                $checkboxes[13]='<input type="hidden" id="hidden5" name="row[5]" value="f5" onclick="task(this.id);">';
+                $checkboxes[14]='<input type="hidden" id="hidden6" name="row[6]" value="f6" onclick="task(this.id);">';
+                $checkboxes[15]='<input type="hidden" id="hidden7" name="row[7]" value="f7" onclick="task(this.id);">';
+                $checkboxes[16]='<input type="hidden" id="hidden8" name="row[8]" value="f8" onclick="task(this.id);">';
+                foreach ($row as $key=>$value){
+                  if ($value !=0){
+                    $mod = $value%2;
+                  } else{
+                    $mod = 0;
+                  }
+                  
+                  if ($mod != 0){
+                      $print = $checkboxes[$key];
+                      $index = strpos($print, ">");
+                      $str = 'checked';
+                      $checkboxes[$key]= substr_replace($print, $str, $index, 0);
+                  }
+                }
+                echo implode($checkboxes);
+                // echo "<input type='submit' name='Update' value='Save'/>";
+              } if ($maj == 'Business'){
+                echo 'Business Major Requirements';
+                
+                $query="SELECT * FROM business WHERE email='$username'";
+                $result=mysqli_query($db, $query);
+                $row = mysqli_fetch_array($result, MYSQLI_NUM);
+                $checkboxes=array();
+                $checkboxes[0]='<br>';
+                $checkboxes[1]='<input type="checkbox" id="1" name="row[1]" value="b1" onclick="task(this.id);"> Business1 Requirement<br>';
+                $checkboxes[2]='<input type="checkbox" id="2" name="row[2]" value="b2" onclick="task(this.id);"> Business2 Requirement<br>';
+                $checkboxes[3]='<input type="checkbox" id="3" name="row[3]" value="b3" onclick="task(this.id);"  > Business3 Requirement<br>';
+                $checkboxes[4]='<input type="checkbox" id="4" name="row[4]" value="b4" onclick="task(this.id);"> Business4 Requirement<br>';
+              
+                $checkboxes[5]='<input type="checkbox" id="5" name="row[5]" value="b5" onclick="task(this.id);"> Business5 Requirement<br>';
+               
+                $checkboxes[6]='<input type="checkbox" id="6" name="row[6]" value="b6" onclick="task(this.id);"> Business6 Requirement<br>';              
+                $checkboxes[7]='<input type="checkbox" id="7" name="row[7]" value="b7" onclick="task(this.id);"> Business7 Requirement<br>';
+              
+                $checkboxes[8]='<input type="checkbox" id="8" name="row[8]" value="fb8" onclick="task(this.id);"> Business8 Requirement<br>';
+             
+                
+                $checkboxes[9]='<input type="hidden" id="hidden1" name="row[1]" value="b1" onclick="task(this.id);">';
+                $checkboxes[10]='<input type="hidden" id="hidden2" name="row[2]" value="b2" onclick="task(this.id);">';
+                $checkboxes[11]='<input type="hidden" id="hidden3" name="row[3]" value="b3" onclick="task(this.id);">';
+                $checkboxes[12]='<input type="hidden" id="hidden4" name="row[4]" value="b4" onclick="task(this.id);">';
+                $checkboxes[13]='<input type="hidden" id="hidden5" name="row[5]" value="b5" onclick="task(this.id);">';
+                $checkboxes[14]='<input type="hidden" id="hidden6" name="row[6]" value="b6" onclick="task(this.id);">';
+                $checkboxes[15]='<input type="hidden" id="hidden7" name="row[7]" value="b7" onclick="task(this.id);">';
+                $checkboxes[16]='<input type="hidden" id="hidden8" name="row[8]" value="b8" onclick="task(this.id);">';
+                foreach ($row as $key=>$value){
+                  if ($value !=0){
+                    $mod = $value%2;
+                  } else{
+                    $mod = 0;
+                  }
+                  
+                  if ($mod != 0){
+                      $print = $checkboxes[$key];
+                      $index = strpos($print, ">");
+                      $str = 'checked';
+                      $checkboxes[$key]= substr_replace($print, $str, $index, 0);
+                  }
+                }
+                echo implode($checkboxes);
+                // echo "<input type='submit' name='Update' value='Save'/>";
+              }
+          ?>
 
         </div>
-        <!-- <div style="float:right; padding-top: 5px; padding-right: 25px">
-          <input type="submit" name="Save" value="Save"/>
-        </div> -->
+      </form>
       
   </div>
 
@@ -293,9 +613,9 @@
             </table>
           
 
-          <div style="float:right; padding-top: 5px; padding-right: 25px">
+          <!-- <div style="float:right; padding-top: 5px; padding-right: 25px">
             <input type="submit" name="Save" value="Save"/>
-          </div>
+          </div> -->
 
       </div>
     </div>
@@ -305,10 +625,7 @@
 </body>
 
 <script>
-
   function task(e){
-
-
     var hidden_e = 'hidden'.concat(e);
     for(i=1;i<9;i++){
       var hiddenid='hidden'.concat(i);
@@ -316,17 +633,12 @@
         document.getElementById(e).disabled=false;
         document.getElementById(hidden_e).disabled=false;
       } else{
-
         document.getElementById(i).disabled=true;
         document.getElementById(hiddenid).disabled=true;
       } 
-
     }
-
     document.getElementsByName("check")[0].submit();
-
   }
-
   function drop(ev, el){
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
