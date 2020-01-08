@@ -37,11 +37,7 @@
     
     <?php
     session_start();
-    $servername = "localhost:3306";
-    $username = "cs4640";
-    $password = "password";
-    $dbname = "cs4640";
-    $con = new mysqli($servername, $username, $password, $dbname);
+
     // LOG IN ~ CHECK IF EMAIL IS FOUND IN DATABASE
     //require('connect-db.php');
     // require('database.php');
@@ -52,14 +48,12 @@
     // }
     
     if (isset($_GET['lname']) && isset($_GET['lpass'])) {
-
         $username = $_GET['lname'];
         $pass = $_GET['lpass'];
         //REMEMBER TO CHANGE USERNAME, DB, AND PASSWORD ACCORDINGLY 
-        $db = mysqli_connect('localhost:3306', 'cs4640', 'password', 'cs4640');
+        $db = mysqli_connect('localhost:3306', 'jlp4ub', 'password', 'jlp4ub');
         if($_SERVER["REQUEST_METHOD"] == "GET") {
             
-
             $sql = "SELECT email FROM accounts WHERE email = '$username'";
             $result = mysqli_query($db,$sql);
             $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
@@ -67,7 +61,6 @@
               
             $count = mysqli_num_rows($result);
         }
-
         if ($count == 0) {
             
             echo "<script type='text/javascript'>alert('Account does not exist...Please create an account.');</script>";
@@ -93,14 +86,12 @@
     }
     // ------------- CREATE ACCOUNT ~ CHECK IF EMAIL IS ALREADY IN USE IN DATABASE -------------
     if (isset($_POST['cname']) && isset($_POST['cpass'])) {
-
         $username = $_POST['cname'];
         $pass = $_POST['cpass'];
-        $school = $_POST['school'];
-        $major = $_POST['major'];
+        $sch = $_POST['school'];
+        $maj = $_POST['major'];
         $minor = $_POST['minor'];
-        $db = mysqli_connect('localhost:3306', 'cs4640', 'password', 'cs4640');
-
+        $db = mysqli_connect('localhost:3306', 'jlp4ub', 'password', 'jlp4ub');
         //$query = "SELECT accounts FROM email WHERE username = '$email'";
         $query3 = "SELECT email FROM accounts WHERE email='$username'";
         $result3 = mysqli_query($db,$query3);
@@ -108,7 +99,6 @@
             //$active = $row['active'];
               
         $count3 = mysqli_num_rows($result3);
-
         if ($count3 > 0) {
             // echo "Account already exists...Please login.";
             echo "<script type='text/javascript'>alert('Email is already in use.');</script>";
@@ -123,26 +113,86 @@
             // $_SESSION['minor'] = $_POST['minor'];
             // $_SESSION['use'] = $email;
             
-            $query = "INSERT INTO accounts (email, password, school, major, minor) VALUES ('$username', '$pass', '$school','$major', '$minor')";
-            $requirequery = "INSERT INTO requirements (email) VALUES('$username')";
+            $query = "INSERT INTO accounts (email, password, school, major, minor) VALUES ('$username', '$pass', '$sch','$maj', '$minor')";
             mysqli_query($db, $query);
-            mysqli_query($db, $requirequery);
+
+            if ($sch == 'College of Arts and Sciences') {
+                $q1 = "INSERT INTO college (email) VALUES('$username')";
+                mysqli_query($db, $q1);
+
+                if ($maj == 'Accounting') {
+                    $q2 = "INSERT INTO accounting (email) VALUES('$username')";
+                    mysqli_query($db, $q2);
+                }
+                if ($maj == 'Finance') {
+                    $q3 = "INSERT INTO finance (email) VALUES('$username')";
+                    mysqli_query($db, $q3);
+                }
+                if ($maj == 'Business') {
+                    $q4 = "INSERT INTO business (email) VALUES('$username')";
+                    mysqli_query($db, $q4);
+                }
+            }
+            if ($sch == 'Engineering School') {
+                $q1 = "INSERT INTO eSchool (email) VALUES('$username')";
+                mysqli_query($db, $q1);
+
+                if ($maj == 'Accounting') {
+                    $q2 = "INSERT INTO accounting (email) VALUES('$username')";
+                    mysqli_query($db, $q2);
+                }
+                if ($maj == 'Finance') {
+                    $q3 = "INSERT INTO finance (email) VALUES('$username')";
+                    mysqli_query($db, $q3);
+                }
+                if ($maj == 'Business') {
+                    $q4 = "INSERT INTO business (email) VALUES('$username')";
+                    mysqli_query($db, $q4);
+                }
+            }
+            if ($sch == 'Architecture') {
+                $q1 = "INSERT INTO aSchool (email) VALUES('$username')";
+                mysqli_query($db, $q1);
+
+                if ($maj == 'Accounting') {
+                    $q2 = "INSERT INTO accounting (email) VALUES('$username')";
+                    mysqli_query($db, $q2);
+                }
+                if ($maj == 'Finance') {
+                    $q3 = "INSERT INTO finance (email) VALUES('$username')";
+                    mysqli_query($db, $q3);
+                }
+                if ($maj == 'Business') {
+                    $q4 = "INSERT INTO business (email) VALUES('$username')";
+                    mysqli_query($db, $q4);
+                }
+            }
+            if ($sch == 'Nursing School') {
+                $q1 = "INSERT INTO nSchool (email) VALUES('$username')";
+                mysqli_query($db, $q1);
+
+                if ($maj == 'Accounting') {
+                    $q2 = "INSERT INTO accounting (email) VALUES('$username')";
+                    mysqli_query($db, $q2);
+                }
+                if ($maj == 'Finance') {
+                    $q3 = "INSERT INTO finance (email) VALUES('$username')";
+                    mysqli_query($db, $q3);
+                }
+                if ($maj == 'Business') {
+                    $q4 = "INSERT INTO business (email) VALUES('$username')";
+                    mysqli_query($db, $q4);
+                }
+            }
+            
             $_SESSION['email'] = $username;
             $_SESSION['password'] = $pass;
-   
-            $_SESSION['school'] = $school;
-            $_SESSION['major'] = $major;
+            $_SESSION['school'] = $sch;
+            $_SESSION['major'] = $maj;
             $_SESSION['minor'] = $minor;
             $_SESSION['use'] = $username;
-	       // $statement = $db->prepare($query);
-	       // $statement->bindValue(':email', $email);
-	       // $statement->bindValue(':password', $password);
-	       // $statement->bindValue(':school', $school);
-	       // $statement->bindValue(':major', $major); 
-	       // $statement->bindValue(':minor', $minor);
-	       // $statement->execute();
-	       // $statement->closeCursor();
             header('Location: index3.php'); 
+
         }
         
     }
