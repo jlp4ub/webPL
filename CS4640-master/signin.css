@@ -1,0 +1,44 @@
+@media screen and (min-width:1200px){
+	#descrip{
+		width:50%;
+	}
+	#login{
+		width:50%;
+	}
+}
+.page-row{
+	display:flex;
+	justify-content: center;
+	padding-top: 50px;
+	padding-left: 100px;
+
+
+}
+
+.a{
+	padding-top: 20px;
+}
+
+.sign-in-title{
+	padding-top: 20px;
+	text-align: center;
+}
+.login-row{
+	padding-top: 10px;
+}
+
+.panel-login{
+	margin-top: 20px;
+	margin-bottom:50px;
+	height: 250px;
+	background-color: lightblue;
+
+}
+
+ul{
+	margin-top: 145px;
+}
+
+li{
+	margin-top: 15px;
+}

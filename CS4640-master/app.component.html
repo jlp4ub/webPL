@@ -1,0 +1,280 @@
+<!-- Ashley Hoang and Jessica Phan -->
+<!-- Recommended classes page -->
+<!DOCTYPE>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">  <!-- required to handle IE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" /> 
+    <link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet'>
+    
+    <script src="//code.angularjs.org/snapshot/angular.min.js"></script>
+    <script src="//code.angularjs.org/snapshot/angular-animate.js"></script>
+    <!-- <link href="animations.css" rel="stylesheet" type="text/css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    
+    <title>Schedule4Me</title>
+
+
+  <style>
+    .dept{
+      /*margin-left:100px;*/
+      margin-left:auto;
+      margin-right: auto;
+    }
+    .school-title{
+      margin-top: 15px;
+    }
+    .text{
+      text-align: center;
+    }
+    .col-centered{
+      float:none;
+      margin: 0 auto;
+    }
+    body{
+      font-family: 'Arvo';
+      background-color:#E8E8E8;
+      height: 100%;
+    }
+    h1{
+      color:#E8E8E8;
+    }
+    .input-xs {
+      height: 22px;
+      padding: 2px 5px;
+      font-size: 12px;
+      line-height: 1.5; /* If Placeholder of the input is moved up, rem/modify this. */
+      border-radius: 3px;
+    }
+    .form-check-label{
+      padding-left: 20px;
+
+    }
+
+  </style>
+ 
+  
+
+
+</head>
+
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #61C2A2">
+        <a class="navbar-brand" href="#">Schedule4Me</a>
+        <!-- Hamburger collapsible -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">   
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Account</a>
+            </li>                                     
+            <li class="nav-item"> 
+              <a class="nav-link" href="index3.php">MySchedule</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Recommended</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.php">Log Out</a>
+            </li>
+            
+          </ul>
+        </div>  
+  </nav>
+
+  <div class="dept" [ngStyle]="{'background-color': 'white', 'width': '80%', 'align-items': 'center', 'height':'500%'}">
+    <div class="school-title">
+      <h3>Write a Review</h3>
+    </div>
+    <br/>
+    <!-- orderForm="ngForm" -->
+    <form orderForm='ngForm' action='insert.php'>
+   <!--  <div class="form-group">
+      <label>Name: </label>
+      <input required #name="ngModel" 
+             [class.is-invalid]="name.invalid"
+             [(ngModel)]="orderModel.name" type="text" class="form-control" name="name">
+      <small class="text-danger" [class.d-none]="name.valid || name.untouched">Name is requried</small>
+    </div> -->
+
+    <!-- <div class="form-group">
+      <label>Email: </label>
+      <input [(ngModel)]="orderModel.email" type="email" class="form-control" name="email">
+    </div> -->
+
+    <!-- <div class="form-group">
+      <label>Phone: </label>
+      <input type="tel" class="form-control" required
+          #phone="ngModel" pattern="^\d{10}$" 
+          [class.is-invalid]="phone.invalid && phone.touched" 
+          [(ngModel)]="orderModel.phone"  name="phone">
+      <small class="text-danger" [class.d-none]="phone.valid || phone.untouched">Phone number is required and must be 10 digits</small>
+    </div> -->
+
+    <div class="form-group">
+      <h5>What class are you reviewing?</h5>
+      <select class="custom-select" name="Subject" (change)="toggleVisibility($event)">
+      <input type="button" id="btnsubmit" style="visibility:hidden;" checked (click)="toggleVisibility($event)">
+
+        <option *ngFor="let class of classes">{{class}}</option>
+      </select>
+      
+    </div>
+
+    <div class="form-group">
+      <h5>Grade the course:</h5>
+      <label>Professor Rating:</label>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="tempPreference" value="hot">
+        <label class="form-check-label">Hot</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="tempPreference" value="cold">
+        <label class="form-check-label">Cold</label>
+      </div>
+    </div>
+    <div class="form-group1">
+      <label>Fun Factor:</label>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="tempPreference" value="hot">
+        <label class="form-check-label">Hot</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="tempPreference" value="cold">
+        <label class="form-check-label">Cold</label>
+      </div>
+    </div>
+    <div class="form-group2">
+      <label>Difficulty:</label>
+      <div class="form-check" [ngStyle]="{'margin-right':'100px'}">
+        <input class="form-check-input" type="radio" name="tempPreference" value="hot" >
+        <label class="form-check-label" style="padding-right: 20px">Hot</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="tempPreference" value="cold">
+        <label class="form-check-label">Cold</label>
+      </div>
+    </div>
+
+    <div class="form-group4">
+      <label>This course emphasizes: (Avg # Hours/Week)</label>
+
+      
+      <h5>Reading:</h5>
+      <div class="col-lg-2">
+              <div class="input-group">
+          <span class="input-group-btn">
+
+                <span class="glyphicon glyphicon-minus" (click)="onDecrement()"></span>
+ 
+          </span>
+          <!-- <input type="text" id="quantity" name="quantity" class="form-control input-number" value="10"> -->
+          <input type="number" value="{{counter}}" class="form-control" style="text-align:center;" >
+          
+      </div>
+
+    </div><br><br>
+    <h5>Writing:</h5>
+      <div class="col-lg-2">
+              <div class="input-group">
+          <span class="input-group-btn">
+              <span class="glyphicon glyphicon-minus" (click)="onDecrement()"></span>
+          </span>
+          <input type="number" value="{{counter}}" class="form-control" style="text-align:center;" >
+      </div>
+      
+    </div><br><br>
+    <h5>Groupwork:</h5>
+      <div class="col-lg-2">
+              <div class="input-group">
+          <span class="input-group-btn">
+              <span class="glyphicon glyphicon-minus" (click)="onDecrement()"></span>
+          </span>
+          <input type="number" value="{{counter}}" class="form-control" style="text-align:center;" >
+      </div>
+      
+      
+    </div><br>
+   
+
+
+    </div><br>
+
+    <div class="form-group3">
+      <label>Recommendability:</label><br>
+      <label [ngStyle]="{'font-size':'12px'}">Check if you would highly recommend this class:</label><br>
+      <input type="checkbox" [(ngModel)]="theCheckbox" data-md-icheck (change)="toggleVisibility($event)"/>
+    I <span *ngIf="marked">would highly</span><span *ngIf="!marked">would</span> recommend this class
+    
+    </div>
+
+    <!-- <input type="checkbox" [(ngModel)]="theCheckbox"  data-md-icheck (change)="toggleVisibility($event)"/>
+    Checkbox is <span *ngIf="marked">checked</span><span *ngIf="!marked">unchecked</span>
+
+  <span class="checkmark"></span> -->
+
+
+    <br/>
+      <div class="form-group">
+        <h5>Tell us more about the course/professor:</h5>
+
+      </div>
+    
+      <textarea name="message" rows="6" cols="80"></textarea><br>
+    
+
+  <span class="checkmark"></span>
+    
+    <button class="btn btn-primary" [(ngModel)]="theCheckbox"  data-md-icheck (change)="toggleVisibility($event)">Submit Review!</button>
+
+    <!-- (click)="senddata(orderForm.value)" -->
+    
+  </form>
+  </div>
+
+
+<script>
+  function myFunction(){
+    alert("Javascript");
+  }
+  $(document).ready(function(){
+  var quantitiy=0;
+   $('.quantity-right-plus').click(function(e){
+        // Stop acting like a button
+        window.alert("right")
+        e.preventDefault();
+        // Get the field name
+        var quantity = parseInt($('#quantity').val());
+            $('#quantity').val(quantity + 1);
+    });
+
+     $('.quantity-left-minus').click(function(e){
+        // Stop acting like a button
+        e.preventDefault();
+        // Get the field name
+        var quantity = parseInt($('#quantity').val());
+            if(quantity>0){
+            $('#quantity').val(quantity - 1);
+            }
+    });
+    
+});
+
+</script>
+
+</body>
+
+
+</html>
+
+
+<router-outlet></router-outlet>

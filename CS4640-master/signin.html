@@ -1,0 +1,123 @@
+<!DOCTYPE>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Schedule4Me</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" /> 
+	<link rel="stylesheet" type="text/css" href="example.css">
+	
+
+</head>
+
+<body>
+	<div class="row navbar navbar-expand-md bg-dark navbar-dark" style="padding:20px;">
+		<span class="one-half column">
+			<a class="navbar-brand" href="#">Schedule4Me</a>
+		</span>
+	</div>
+
+	<div class="page-row">
+		<div id="descrip" class="col-md-offset-1 col-md6 hidden-sm hidden-xs" style="float:left;background-color: lightblue;">
+			<div class="a">
+				<h1 class="welcome" style="text-align: center;">Welcome to Schedule4Me</h1>
+			</div>
+
+			<div class="a">
+					<p style="text-align: center;">Helping you visualize your next four years at UVA</p>
+			</div>
+
+			<ul style="list-style-type:circle;">
+				<li>See what college and major requirements you need to fulfill</li>
+				<li>Plan out your semesters accordingly</li>
+				<li>See what classes other students are recommending</li>
+			</ul>	
+		</div>
+
+
+		<div id="login" class="col-md-5" style="float:right;">
+			<form id="returnuser" action="mainpage.html" onsubmit="return validateLoginForm()" method="post">
+				<div class="panel-login">
+
+					<div class="sign-in-title">
+						<h1>Sign in</h1>
+					</div>
+					<div class="login-row" style="margin-left:30%">
+						<input type="email" id="lname" placeholder="Enter email">
+					</div>
+					<div class="login-row" style="margin-left:30%;">
+						<input type="password" name="lpass" placeholder="Enter password" required>
+						<input type="submit" id="but" value="Submit">
+					</div>
+
+				</div>
+			</form>
+
+			<form id="returnuser" action="mainpage.html" onsubmit="return validateCreateForm()" method="post">
+				<div class="panel-login">
+					<div class="sign-in-title">
+						<h1>Create Account</h1>
+					</div>
+					<div class="login-row" style="margin-left:30%">
+						<input type="email" name="name" placeholder="Enter username">
+					</div>
+					<div class="login-row" style="margin-left:30%;">
+						<input type="password" id="pass" placeholder="Enter password" required>
+					</div>
+					<div class="login-row" style="margin-left:30%;">
+						<input type="password" id="confirmpass" placeholder="Confirm password" required>
+						<input type="submit" id="button" value="Submit">
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</div>
+
+</body>
+		
+<script>
+	/*
+	function validateLoginForm(){
+
+		var email = document.forms["returnuser"]["name"].value;
+		if (email==""){
+			alert("Email must be filled out");
+			return false;
+		}
+	}*/
+	
+	document.getElementById("but").addEventListener("click", function(){
+
+		var name = document.getElementById("lname").value;
+		var nameRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.+-]+\.edu$/;
+		
+		var tester = name.test(nameRegex);
+		alert(tester);
+		if(tester == false){
+			alert("hi");
+			return false;
+		}
+		
+
+	});
+
+	function validateCreateForm(){
+
+		var pass = document.getElementById("pass");
+		var pass2 = document.getElementById("confirmpass");
+		if (pass.value != pass2.value){
+			alert("Passwords do not match");
+			return false;
+		}
+		if (pass.value.length < 8){
+			alert("Password is too short. Must be at least 8 characters.")
+			return false;
+		}
+
+
+	}
+</script>
+
+</html>
